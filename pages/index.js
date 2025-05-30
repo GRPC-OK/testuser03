@@ -1,66 +1,121 @@
 import { useState } from 'react';
-import SecureComponent from '../components/SecureComponent';
 
 export default function Home() {
-  const [userInput, setUserInput] = useState('');
-  const [apiResponse, setApiResponse] = useState('');
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState('');
 
-  const handleSecureSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // 클라이언트 측 기본 검증
+    if (!input.trim()) {
+      setResult('Please enter a message');
+      return;
+    }
+
     try {
       const response = await fetch('/api/secure', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: userInput })
+        body: JSON.stringify({ message: input })
       });
       
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+      
       const data = await response.json();
-      setApiResponse(data.message);
+      setResult(data.message);
     } catch (error) {
-      setApiResponse('Error occurred');
+      setResult('An error occurred');
     }
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>🔒 TestUser03 - Security Best Practices</h1>
-      <p>✅ This application follows all security best practices.</p>
+    <div style={{ 
+      padding: '20px', 
+      fontFamily: 'Arial, sans-serif',
+      maxWidth: '600px',
+      margin: '0 auto'
+    }}>
+      <h1>🔒 TestUser03 - Secure Application</h1>
       
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ marginBottom: '20px' }}>
         <h2>Security Features:</h2>
         <ul>
+          <li>✅ Latest dependencies (no vulnerabilities)</li>
           <li>✅ Input validation and sanitization</li>
-          <li>✅ Parameterized queries</li>
-          <li>✅ XSS prevention</li>
-          <li>✅ CSRF protection</li>
-          <li>✅ Rate limiting</li>
-          <li>✅ Secure headers</li>
-          <li>✅ Latest dependencies</li>
-          <li>✅ Container security</li>
+          <li>✅ Proper error handling</li>
+          <li>✅ Secure Docker configuration</li>
+          <li>✅ Non-root container user</li>
+          <li>✅ Multi-stage build</li>
         </ul>
       </div>
 
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ marginBottom: '20px' }}>
         <h3>Test Secure Input:</h3>
-        <form onSubmit={handleSecureSubmit}>
-          <input
-            type="text"
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            placeholder="Enter a message"
-            style={{ padding: '8px', marginRight: '10px', width: '300px' }}
-          />
-          <button type="submit" style={{ padding: '8px 16px' }}>
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: '10px' }}>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Enter a message (max 100 chars)"
+              maxLength={100}
+              style={{ 
+                padding: '8px', 
+                width: '300px',
+                border: '1px solid #ccc',
+                borderRadius: '4px'
+              }}
+            />
+          </div>
+          <button 
+            type="submit"
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
             Submit Safely
           </button>
         </form>
-        {apiResponse && <p>Response: {apiResponse}</p>}
+        
+        {result && (
+          <div style={{ 
+            marginTop: '15px', 
+            padding: '10px',
+            backgroundColor: '#f8f9fa',
+            border: '1px solid #dee2e6',
+            borderRadius: '4px'
+          }}>
+            <strong>Response:</strong> {result}
+          </div>
+        )}
       </div>
 
-      <SecureComponent userContent="<script>alert('This will be safely rendered')</script>" />
+      <div style={{ 
+        marginTop: '30px',
+        padding: '15px',
+        backgroundColor: '#d4edda',
+        border: '1px solid #c3e6cb',
+        borderRadius: '4px'
+      }}>
+        <h4>✅ This application demonstrates:</h4>
+        <ul>
+          <li>Secure coding practices</li>
+          <li>Input validation on both client and server</li>
+          <li>Proper error handling</li>
+          <li>Latest security updates</li>
+          <li>Container security best practices</li>
+        </ul>
+      </div>
     </div>
   );
 }

@@ -5,27 +5,22 @@
 ## 보안 강화 요소들
 
 ### 🔒 Secure Coding
-- ✅ Parameterized queries (SQL Injection 방지)
-- ✅ Input validation & sanitization (XSS 방지)
-- ✅ Secure cryptography (bcrypt, crypto.randomBytes)
-- ✅ XSS prevention (DOMPurify 사용)
-- ✅ Path traversal protection
-- ✅ CSRF protection
-- ✅ Rate limiting
+- ✅ 입력 검증 및 정리 (XSS 방지)
+- ✅ 적절한 오류 처리
+- ✅ HTTP 메서드 검증
+- ✅ Content-Type 검증
+- ✅ 길이 제한
 
 ### 🐳 Container Security
-- ✅ Latest stable images
-- ✅ Non-root user
-- ✅ Multi-stage builds
-- ✅ Minimal attack surface
-- ✅ Health checks
-- ✅ Security headers
+- ✅ 최신 Node.js 20 이미지
+- ✅ Non-root 사용자 실행
+- ✅ 멀티스테이지 빌드
+- ✅ 최소한의 공격 표면
 
 ### 📦 Dependencies
-- ✅ Latest secure versions
-- ✅ Regular security audits
-- ✅ Minimal dependencies
-- ✅ Automated vulnerability scanning
+- ✅ 최신 안전한 버전만 사용
+- ✅ 최소한의 의존성
+- ✅ 정기적인 보안 업데이트
 
 ## 사용법
 ```bash
