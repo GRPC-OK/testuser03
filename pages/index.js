@@ -164,35 +164,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Deployment Info */}
-        <div style={{
-          background: '#161b22',
-          border: '1px solid #30363d',
-          borderRadius: '8px',
-          padding: '1.5rem',
-          marginBottom: '2rem'
-        }}>
-          <h3 style={{ margin: '0 0 1rem 0' }}>배포 정보</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-            <div>
-              <div style={{ color: '#8b949e', fontSize: '0.9rem' }}>버전</div>
-              <div style={{ fontWeight: '500' }}>v1.0.0</div>
-            </div>
-            <div>
-              <div style={{ color: '#8b949e', fontSize: '0.9rem' }}>브랜치</div>
-              <div style={{ fontWeight: '500' }}>main</div>
-            </div>
-            <div>
-              <div style={{ color: '#8b949e', fontSize: '0.9rem' }}>배포 URL</div>
-              <div style={{ fontWeight: '500', color: '#58A6FF' }}>testuser03.intellisia.site</div>
-            </div>
-            <div>
-              <div style={{ color: '#8b949e', fontSize: '0.9rem' }}>배포 시간</div>
-              <div style={{ fontWeight: '500' }}>{new Date().toLocaleString()}</div>
-            </div>
-          </div>
-        </div>
-
         {/* Test Input Section */}
         <div style={{
           background: '#161b22',
