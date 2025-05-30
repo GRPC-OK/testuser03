@@ -1,38 +1,27 @@
-# 최신 Node.js 사용
-FROM node:20-alpine AS base
+FROM node:20-alpine
 
-# 의존성 설치 단계
-FROM base AS deps
 WORKDIR /app
+
+# 의존성 설치
 COPY package*.json ./
 RUN npm ci
 
-# 빌드 단계
-FROM base AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+# 소스 복사
 COPY . .
+
+# public 폴더가 없으면 생성
+RUN mkdir -p public
+
+# 빌드
 RUN npm run build
 
-# 실행 단계
-FROM base AS runner
-WORKDIR /app
-
-ENV NODE_ENV=production
-
-# 보안을 위한 non-root 사용자 생성
+# non-root 사용자 생성
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
+RUN chown -R nextjs:nodejs /app
 
-# 필요한 파일만 복사
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# non-root 사용자로 실행
 USER nextjs
 
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
